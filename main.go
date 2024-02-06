@@ -3,15 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/TNXG/ProcessReporterWingo/packages/getconf"
+	Core "github.com/TNXG/ProcessReporterWingo/core"
 )
 
-var conf = getconf.ReadFile()
+var conf = Core.ReadConf()
 var endpoint = conf.Server.Endpoint
 var token = conf.Server.Token
 
 func main() {
-	conf := getconf.ReadFile()
-	url := conf.Server.Endpoint
-	fmt.Println("Endpoint: ", url)
+	processName, windowTitle := Core.GetWindowInfo()
+	fmt.Println(processName, ":::", windowTitle)
 }
