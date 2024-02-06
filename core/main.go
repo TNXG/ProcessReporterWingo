@@ -13,9 +13,9 @@ import (
 // Config 结构体用于存储从YAML配置文件中读取的配置信息
 type Config struct {
 	Server struct {
-		Endpoint    string `yaml:"endpoint"`    // 服务器的端点
-		Token       string `yaml:"token"`       // 令牌
-		report_time string `yaml:"report_time"` // 报告时间
+		Endpoint   string `yaml:"endpoint"`   // 服务器的端点
+		Token      string `yaml:"token"`      // 令牌
+		ReportTime int    `yaml:"ReportTime"` // 报告时间
 	} `yaml:"server"` // 服务器配置
 }
 
