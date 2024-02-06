@@ -11,7 +11,8 @@ Process Reporter for WinGo 是一个使用Glang开发的Windows应用程序。�
 本程序计划兼容新版本的Shiro实现的功能，其功能可以在[Shiro](https://github.com/Innei/Shiro)开发者Innei开发的Windows上报程序[ProcessReporterCli](https://github.com/Innei/ProcessReporterCli)中体验到 ~~被抢饭碗了，群地位Down（不是）~~
 
 # Todo
-- [ ] 实现基本上报功能
+- [x] 实现基本上报功能
+- [ ] 完整实现[ProcessReporterWinpy](https://github.com/TNXG/ProcessReporterWinpy)的功能
 - [ ] 兼容新版本Shiro的客端化上传
 - [ ] 接入未能在Python版本中实现的[ProcessReporterWinpy/NcmNowPlay](https://github.com/TNXG/ProcessReporterWinpy/tree/master/core/NcmNowPlay)
 - [ ] GUI
