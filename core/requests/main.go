@@ -29,7 +29,7 @@ func BuildData(processName string, mediaUpdate map[string]string, token string) 
 	timestamp := int(time.Now().Unix())
 
 	var updateData map[string]interface{}
-	if mediaUpdate["title"] == "" {
+	if mediaUpdate["title"] != "" {
 		updateData = map[string]interface{}{
 			"timestamp": timestamp,
 			"process":   processName,
