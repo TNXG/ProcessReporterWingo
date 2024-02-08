@@ -1,0 +1,17 @@
+ServerConfig:
+  Endpoint: "apiurl" # https://api.example.com/api/v2/fn/ps/update
+  Token: "apikey" # 设置的key
+  ReportTime: "10" # 上报时间间隔，单位秒
+Rules: # 软件名的替换规则，与ProcessReporterWinpy略有不同、为新版本Shiro适配（
+  - MatchApplication: WeChat
+    Replace:
+      Application: 微信
+      Description: 一个小而美的办公软件
+  - MatchApplication: QQ
+    Replace:
+      Application: QQ
+      Description: 一个多功能的通讯软件
+  - MatchApplication: Netease Cloud Music
+    Replace:
+      Application: 网易云音乐
+      Description: 一个音乐播放和分享的平台

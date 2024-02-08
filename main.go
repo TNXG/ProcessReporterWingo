@@ -1,30 +1,36 @@
 package main
 
 import (
+	"strings"
 	"time"
 
+	Config "github.com/TNXG/ProcessReporterWingo/config"
 	Core "github.com/TNXG/ProcessReporterWingo/core"
 	Requests "github.com/TNXG/ProcessReporterWingo/core/requests"
 )
 
 // 从配置文件中读取配置信息
-var conf = Core.ReadConf()
+var cfg = Config.LoadConfig()
 
 // 服务器的端点
-var endpoint = conf.Server.Endpoint
+var endpoint = cfg.ServerConfig.Endpoint
 
 // 服务器的令牌
-var token = conf.Server.Token
+var token = cfg.ServerConfig.Token
 
 // 报告时间间隔（秒）
-var reportTime = conf.Server.ReportTime
+var reportTime = cfg.ServerConfig.ReportTime
 
 // report 函数用于报告当前前台窗口的进程信息
 func report() {
 	// 获取当前前台窗口的进程名
 	processName, _ := Core.GetWindowInfo()
+	// 处理一下进程名
+	processName = strings.TrimSuffix(processName, ".exe")
+	processName = Core.Replacer(processName)
 	// 创建一个空的媒体更新map
 	mediaUpdate := map[string]string{}
+	// TODO:::log.Printf(Core.GetSmtcInfo())
 	// 构建数据map，包含时间戳、进程名、媒体更新和token四个键
 	updateData := Requests.BuildData(processName, mediaUpdate, token)
 	// 向指定的endpoint发送POST请求，请求的数据是updateData

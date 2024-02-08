@@ -1,43 +1,14 @@
 package Core
 
 import (
-	"io/ioutil"
-	"log"
+	"C"
 	"syscall"
 	"unsafe"
 
-	"github.com/TNXG/ProcessReporterWingo/tools"
-	"gopkg.in/yaml.v2"
+	Config "github.com/TNXG/ProcessReporterWingo/config"
 )
 
-// Config 结构体用于存储从YAML配置文件中读取的配置信息
-type Config struct {
-	Server struct {
-		Endpoint   string `yaml:"endpoint"`   // 服务器的端点
-		Token      string `yaml:"token"`      // 令牌
-		ReportTime int    `yaml:"ReportTime"` // 报告时间
-	} `yaml:"server"` // 服务器配置
-}
-
-// ReadConf 函数用于读取和解析YAML配置文件
-func ReadConf() Config {
-	// 读取文件
-	workdir, _ := tools.Getwd()
-	data, err := ioutil.ReadFile(workdir + "/config.yml")
-	if err != nil {
-		log.Fatalf("无法读取文件: %v", err)
-	}
-	// 将YAML反序列化为结构体
-	var conf Config
-	err = yaml.Unmarshal(data, &conf)
-	if err != nil {
-		log.Fatalf("无法解析文件: %v", err)
-	}
-	// 直接返回
-	return conf
-}
-
-// 定义一些变量，用于调用Windows API
+// 定义一些变量
 var (
 	user32DLL                    = syscall.MustLoadDLL("User32.dll")                             // 加载User32.dll
 	procGetForegroundWindow      = user32DLL.MustFindProc("GetForegroundWindow")                 // 获取GetForegroundWindow函数的地址
@@ -45,6 +16,7 @@ var (
 	procGetWindowThreadProcessId = user32DLL.MustFindProc("GetWindowThreadProcessId")            // 获取GetWindowThreadProcessId函数的地址
 	procOpenProcess              = syscall.NewLazyDLL("kernel32.dll").NewProc("OpenProcess")     // 获取OpenProcess函数的地址
 	procGetModuleBaseNameW       = syscall.NewLazyDLL("psapi.dll").NewProc("GetModuleBaseNameW") // 获取GetModuleBaseNameW函数的地址
+	mod                          *syscall.LazyDLL
 )
 
 // StringToCharPtr 函数用于将字符串转换为字符指针
@@ -65,4 +37,29 @@ func GetWindowInfo() (string, string) {
 	processName := make([]uint16, 255)                                                           // 创建一个长度为255的uint16切片，用于存储进程的名字
 	procGetModuleBaseNameW.Call(processHandle, 0, uintptr(unsafe.Pointer(&processName[0])), 255) // 获取进程的名字
 	return syscall.UTF16ToString(processName), syscall.UTF16ToString(windowTitle)                // 返回进程的名字和窗口的标题
+}
+
+// Todo 等我先研究下C#、.NET和WINRT再说吧
+// func GetSmtcInfo() string {
+// 	workdir, _ := tools.Getwd()
+// 	mod = syscall.NewLazyDLL(workdir + "/core/GetSmtcData.dll")
+// 	err := mod.Load()
+// 	if err != nil {
+// 		log.Printf("无法加载GetSmtcData.dll: %v", err)
+// 	}
+// 	getSmtcInfo := mod.NewProc("GetSmtcInfo")
+// 	result, _, _ := getSmtcInfo.Call()
+// 	goString := C.GoString((*C.char)(unsafe.Pointer(result)))
+// 	return goString
+// }
+
+// 替换文本内容
+func Replacer(processName string) string {
+	cfg := Config.LoadConfig()
+	for _, rule := range cfg.Rules {
+		if processName == rule.MatchApplication {
+			return rule.Replace.Application
+		}
+	}
+	return processName
 }
