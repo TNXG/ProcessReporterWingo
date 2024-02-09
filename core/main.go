@@ -16,7 +16,6 @@ var (
 	procGetWindowThreadProcessId = user32DLL.MustFindProc("GetWindowThreadProcessId")            // 获取GetWindowThreadProcessId函数的地址
 	procOpenProcess              = syscall.NewLazyDLL("kernel32.dll").NewProc("OpenProcess")     // 获取OpenProcess函数的地址
 	procGetModuleBaseNameW       = syscall.NewLazyDLL("psapi.dll").NewProc("GetModuleBaseNameW") // 获取GetModuleBaseNameW函数的地址
-	mod                          *syscall.LazyDLL
 )
 
 // StringToCharPtr 函数用于将字符串转换为字符指针
