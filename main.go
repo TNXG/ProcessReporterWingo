@@ -29,8 +29,14 @@ func report() {
 	processName = strings.TrimSuffix(processName, ".exe")
 	processName = Core.Replacer(processName)
 	// 创建一个空的媒体更新map
-	mediaUpdate := map[string]string{}
-	// TODO:::log.Printf(Core.GetSmtcInfo())
+	var mediaUpdate map[string]string
+	// 获取media信息
+	Title, Artist, SourceAppName := Core.GetSmtcInfo()
+	if Title != "" {
+		mediaUpdate = Requests.BuildMediaUpdate(Title, Artist, SourceAppName)
+	} else {
+		mediaUpdate = map[string]string{}
+	}
 	// 构建数据map，包含时间戳、进程名、媒体更新和token四个键
 	updateData := Requests.BuildData(processName, mediaUpdate, token)
 	// 向指定的endpoint发送POST请求，请求的数据是updateData

@@ -16,10 +16,11 @@ func StringToCharPtr(str string) *uint16 {
 }
 
 // BuildMediaUpdate 函数用于构建一个媒体更新的map，包含"title"和"artist"两个键
-func BuildMediaUpdate(title, artist string) map[string]string {
+func BuildMediaUpdate(title, artist, SourceAppName string) map[string]string {
 	return map[string]string{
-		"title":  title,
-		"artist": artist,
+		"title":         title,
+		"artist":        artist,
+		"SourceAppName": SourceAppName,
 	}
 }
 

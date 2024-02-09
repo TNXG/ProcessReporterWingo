@@ -1,11 +1,11 @@
 package Core
 
 import (
-	"C"
 	"syscall"
 	"unsafe"
 
 	Config "github.com/TNXG/ProcessReporterWingo/config"
+	"github.com/TNXG/ProcessReporterWingo/tools"
 )
 
 // 定义一些变量
@@ -39,19 +39,16 @@ func GetWindowInfo() (string, string) {
 	return syscall.UTF16ToString(processName), syscall.UTF16ToString(windowTitle)                // 返回进程的名字和窗口的标题
 }
 
-// Todo 等我先研究下C#、.NET和WINRT再说吧
-// func GetSmtcInfo() string {
-// 	workdir, _ := tools.Getwd()
-// 	mod = syscall.NewLazyDLL(workdir + "/core/GetSmtcData.dll")
-// 	err := mod.Load()
-// 	if err != nil {
-// 		log.Printf("无法加载GetSmtcData.dll: %v", err)
-// 	}
-// 	getSmtcInfo := mod.NewProc("GetSmtcInfo")
-// 	result, _, _ := getSmtcInfo.Call()
-// 	goString := C.GoString((*C.char)(unsafe.Pointer(result)))
-// 	return goString
-// }
+// 通过使用C#编写的程序获取媒体信息
+func GetSmtcInfo() (string, string, string) {
+	workdir, _ := tools.Getwd()
+	// 运行程序获取输出
+	result, _ := tools.RunCmd(workdir + "/core/GetSmtcInfo.exe")
+	Title := tools.GetMiddleStr(result, "[ProcessReporterWingo.GetSmtcInfo.Title]", "[/ProcessReporterWingo.GetSmtcInfo.Title]")
+	Artist := tools.GetMiddleStr(result, "[ProcessReporterWingo.GetSmtcInfo.Artist]", "[/ProcessReporterWingo.GetSmtcInfo.Artist]")
+	SourceAppName := tools.GetMiddleStr(result, "[ProcessReporterWingo.GetSmtcInfo.SourceAppName]", "[/ProcessReporterWingo.GetSmtcInfo.SourceAppName]")
+	return Title, Artist, SourceAppName
+}
 
 // 替换文本内容
 func Replacer(processName string) string {
