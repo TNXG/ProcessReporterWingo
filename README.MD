@@ -19,10 +19,9 @@ Process Reporter for WinGo 是一个使用Golang开发的Windows应用程序。�
 - [ ] 检测更新，自动下载`GetSmtcInfo Core`
 - [ ] 基于网易云音乐手机端Api的播放信息获取（拿不到播放状态（
 - [ ] 兼容新版本Shiro的客端化上传
-- [ ] 接入未能在Python版本中实现的[ProcessReporterWinpy/NcmNowPlay](https://github.com/TNXG/ProcessReporterWinpy/tree/master/core/NcmNowPlay)
 - [ ] GUI
 
-## 其他系统的报告程序
+## 其他的Shiro报告程序
 
 - [macOS](https://github.com/mx-space/ProcessReporterMac)
 - [Linux](https://github.com/ttimochan/processforlinux) -- 由 ttimochan 使用 Rust 开发的 Linux 上报程序
