@@ -1,3 +1,4 @@
+go generate
 go build -ldflags="-s -w"
 
 if %COMPUTERNAME%==TNXG-PC (
