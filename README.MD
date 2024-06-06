@@ -72,7 +72,9 @@ A：国内很多厂商不按照微软官方的媒体渠道上报媒体信息（�
 
 这时需要其他方法来使本程序的media上报结构生效
 - 通过插件使其通过SMTC上报信息
+
     QQ音乐：[FoskyM/QQMusicSMTC](https://github.com/FoskyM/QQMusicSMTC)
+
     网易云音乐v2：[MicroCBer/BetterNCM](https://github.com/MicroCBer/BetterNCM) 和 [BetterNCM/InfinityLink](https://github.com/BetterNCM/InfinityLink) 搭配使用
 - 自行通过ReportServer上传信息
 - Pr Welcome
