@@ -16,7 +16,7 @@ import (
 )
 
 // 当前程序版本
-var Version = "0.0.2"
+var Version = "0.0.4"
 
 // 从配置文件中读取配置信息
 var cfg = Config.LoadConfig()
