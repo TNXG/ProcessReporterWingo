@@ -4,16 +4,9 @@ import (
 	"encoding/json"
 	"log"
 	"time"
-	"unsafe"
 
 	"github.com/levigross/grequests"
 )
-
-// StringToCharPtr 函数将一个字符串转换为字符指针
-func StringToCharPtr(str string) *uint16 {
-	chars := append([]byte(str), 0)
-	return (*uint16)(unsafe.Pointer(&chars[0]))
-}
 
 // BuildMediaUpdate 函数用于构建一个媒体更新的map，包含"title"和"artist"以及"SourceAppName"三个键
 func BuildMediaUpdate(title, artist, SourceAppName string) map[string]string {

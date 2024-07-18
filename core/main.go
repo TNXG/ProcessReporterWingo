@@ -18,12 +18,6 @@ var (
 	procGetModuleBaseNameW       = syscall.NewLazyDLL("psapi.dll").NewProc("GetModuleBaseNameW") // 获取GetModuleBaseNameW函数的地址
 )
 
-// StringToCharPtr 函数用于将字符串转换为字符指针
-func StringToCharPtr(str string) *uint16 {
-	chars := append([]byte(str), 0)             // 将字符串转换为字节切片，并在末尾添加一个零字节
-	return (*uint16)(unsafe.Pointer(&chars[0])) // 将字节切片的首地址转换为*uint16类型并返回
-}
-
 // GetWindowInfo 函数用于获取当前活动窗口的信息
 // 返回两个字符串，第一个是进程名，第二个是窗口标题
 func GetWindowInfo() (string, string) {
