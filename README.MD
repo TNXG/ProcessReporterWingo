@@ -1,3 +1,7 @@
+> [!WARNING]  
+> 此项目已停止维护，请使用现在仍处于维护状态的 [TNXG/Kizuna](https://github.com/TNXG/Kizuna)、[ChingCdesu/ShiroProcessReporter](https://github.com/ChingCdesu/ShiroProcessReporter) 或 [Innei/ProcessReporterCli](https://github.com/Innei/ProcessReporterCli)。
+
+
 # Process Reporter For Windows Golang
 
 Process Reporter for WinGo 是一个使用Golang开发的Windows应用程序。它旨在实时报告当前用户在PC上正在使用的前台应用程序的名称，以及正在播放的任何媒体信息，并将报告发送到 [Shiro](https://github.com/Innei/Shiro)。
